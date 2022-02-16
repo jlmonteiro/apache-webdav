@@ -1,0 +1,18 @@
+version: "3.2"
+# Created my Network to sort VPN issues
+# docker network create my-network --subnet 172.24.24.0/24
+networks:
+  default:
+    external:
+      name: my-network
+services:
+  web:
+    image: httpd:2.4
+    volumes:
+      - ./data/httpd:/var/www/html
+      - ./conf:/usr/local/apache2/conf
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
